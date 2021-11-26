@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>MQTT Demo</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-secondary">
+                    <img id="img"
+                        src="data:image/jpeg;base64,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"
+                        height="100" width="100" />
+                </button>
+                <div class="mt-3">
+                    Name:<span id="fullname"></span>
+                </div>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2">
+                    cid: <span id="cid"></span>
+                    <span><i class="fa fa-copy"></i></span>
+                </div>
+                <div class="text mt-3">
+                    Address: <span id="address">
+                        Eleanor Pena is a creator of minimalistic x bold graphics and digital artwork.
+                    </span>
+                </div>
+                <div class=" px-2 rounded mt-4 date ">
+                    DOB: <span id="dob">Joined May,2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -->
+    <script src="https://unpkg.com/mqtt@2.17.0/dist/mqtt.js"></script>
+    <script>
+        // Connect to the MQTT Broker over WebSockets
+        // The port here is the "http" port we specified on the MQTT Broker
+        // var client = mqtt.connect('ws://localhost:9002');
+        var client = mqtt.connect('ws://localhost:10884');
+        var initImg = "data:image/jpeg;base64,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";
+        var initFullname = "Eleanor Pena";
+        var initCid = "Oxc4c16a645_b21a";
+        var initDob = "Joined May,2021";
+        var initAddress = "Eleanor Pena is a creator of minimalistic x bold graphics and digital artwork."
+
+        var elFullname = document.getElementById('fullname');
+        var elCid = document.getElementById('cid')
+        var elDob = document.getElementById('dob')
+        var elImg = document.getElementById('img')
+        var elAddress = document.getElementById('address')
+
+        function initForm() {
+            elFullname.textContent = initFullname;
+            elCid.textContent = initCid;
+            elDob.textContent = initDob;
+            elImg.textContent = initImg;
+            elAddress.textContent = initAddress;
+        }
+
+        function IsJsonString(str) {
+            try {
+                var json = JSON.parse(str);
+                return (typeof json === 'object');
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function managePayload(payload) {
+            if (payload) {
+                try {
+                    if (!IsJsonString(payload)) {
+                        return;
+                    }
+                    console.log(`  Payload: ${payload}`);
+                    payload = JSON.parse(payload);
+                    switch (payload.from) {
+                        case "jsmartcard":
+                            console.log("from smartcard => status: " + payload.status);
+                            if (payload.status == 'CARD_EXITED') {
+                                initForm();
+                            } else if (payload.status == 'CARD_ENTERED') {
+                                // do nothing
+                            } else if (payload.status == 'DATA_RETRIEVED') {
+                                elFullname.textContent = payload.data.th_fullname;
+                                elCid.textContent = payload.data.cid;
+                                elDob.textContent = payload.data.dob;
+                                elAddress.textContent = payload.data.address;
+                            } else if (payload.status == 'IMAGE_RETRIEVED')
+                                elImg.setAttribute(
+                                    'src', 'data:image/png;base64,' + payload.data
+                                )
+                            break;
+                        default:
+                        // code block
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }
+        // Message recieved
+        client.on('message', (topic, payload) => {
+            // Log message
+            console.log(`Topic: ${topic}`);
+            console.log(`  Payload: ${payload}`);
+            managePayload(payload);
+            // Close the connection
+            // client.end();
+        });
+
+        client.on('connect', () => {
+            // Subscribe to the "mqtt/demo" topic
+            // (The same one we are publishing to for this example)
+            client.subscribe('moph/ict/mqtt');
+
+            console.log('Connected to MQTT Broker.');
+        });
+
+        client.on('close', () => {
+            console.log('Disconnected from MQTT Broker.');
+        });
+
+        initForm();
+    </script>
+</body>
+
+</html>
